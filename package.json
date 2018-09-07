@@ -1,6 +1,6 @@
 {
   "name": "emilys-candidates",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Emilys List's candidates in JSON form",
   "main": "photos.js",
   "scripts": {
