@@ -27,9 +27,10 @@ async function getCandidates() {
   }))
 }
 
-async function getCandidate() {
+async function getCandidate(candidate) {
+  console.log(candidate.id, candidate.link)
 
-  const response = x('https://www.emilyslist.org/candidates/cindy-axne/', '.candidate-page', [{
+  const response = await x(candidate.link, '.candidate-page', [{
     summary: ['.banner__text li'],
     bio: ['article p'],
     donate: '#candidate-donate-2 a@href',
@@ -52,14 +53,15 @@ async function main() {
   const candidates = await getCandidates()
   write("./candidates.json", candidates)
   // console.log(candidates)
+  console.log('fetched candidates')
 
   const full = {}
   for (const candidate of candidates) {
-    const response = await getCandidate(candidate.location)
-    // write(`candidates/${candidate.id}.json`, response)
+    const response = await getCandidate(candidate)
     full[candidate.id] = {...candidate, ...response[0]};
   }
 
+// console.log(full)
   write("./candidates-full.json", full);
 }
 
